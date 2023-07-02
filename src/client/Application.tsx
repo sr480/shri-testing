@@ -18,7 +18,6 @@ const bem = cn('Application');
 export const Application: FC = () => {
     const [collapsed, setCollapsed] = useState(true);
     const cart = useSelector((s: ApplicationState) => s.cart);
-
     const toggle = useCallback(() => setCollapsed(!collapsed), [setCollapsed, collapsed]);
     const hide = useCallback(() => {
         if (process.env.BUG_ID === '4') {
@@ -40,12 +39,12 @@ export const Application: FC = () => {
                 <button className={bem('Toggler', ['navbar-toggler'])} aria-label="Toggle navigation" onClick={toggle}>
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className={bem('Menu', [navbarClass])}>
+                <div data-testid="menu" className={bem('Menu', [navbarClass])}>
                     <div className="navbar-nav">
                         <NavLink className="nav-link" activeClassName="active" to="/catalog" onClick={hide}>Catalog</NavLink>
                         <NavLink className="nav-link" activeClassName="active" to="/delivery" onClick={hide}>Delivery</NavLink>
                         <NavLink className="nav-link" activeClassName="active" to="/contacts" onClick={hide}>Contacts</NavLink>
-                        <NavLink className="nav-link" activeClassName="active" to="/cart" onClick={hide}>{cartLabel}</NavLink>
+                        <NavLink data-testid="cart-link" className="nav-link" activeClassName="active" to="/cart" onClick={hide}>{cartLabel}</NavLink>
                     </div>
                 </div>
             </div>

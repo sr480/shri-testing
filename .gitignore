@@ -5,3 +5,8 @@ Dockerfile
 .dockerignore
 .DS_Store
 html-report
+coverage
+hermione
+/test-results/
+/playwright-report/
+/playwright/.cache/
