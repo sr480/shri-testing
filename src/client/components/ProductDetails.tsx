@@ -1,10 +1,11 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { cn } from '@bem-react/classname';
-import { Product } from '../../common/types';
+import { Product, ProductVariant } from '../../common/types';
 import { addToCart } from '../store';
 import { CartBadge } from './CartBadge';
 import { Image } from './Image';
+import { ProductVariantSelector } from './ProductVariantSelector';
 
 const bem = cn('ProductDetails');
 
@@ -13,11 +14,12 @@ export interface ProductDetailsProps {
 }
 
 export const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
+    const [variant, setVariant] = useState<ProductVariant>(product.variants?.[0]);
     const dispatch = useDispatch();
 
     const onClick = useCallback(() => {
-        dispatch(addToCart(product));
-    }, [dispatch, product]);
+        dispatch(addToCart(product, variant));
+    }, [dispatch, product, variant]);
 
     const btnSizeClass = process.env.BUG_ID !== '9' ? 'btn-lg' : 'btn-sm';
 
@@ -31,8 +33,11 @@ export const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                 <p className={bem("Description")}>{product.description}</p>
                 <p className={bem("Price", ['fs-3'])}>${product.price}</p>
                 <p>
+                    <ProductVariantSelector variants={product.variants} onSelect={setVariant}></ProductVariantSelector>
+                </p>
+                <p>
                     <button className={bem("AddToCart", ['btn', 'btn-primary', btnSizeClass])} onClick={onClick}>Add to Cart</button>
-                    <CartBadge id={product.id} />
+                    <CartBadge id={product.id} variantId={variant.id} />
                 </p>
                 <dl>
                     <dt>Color</dt>

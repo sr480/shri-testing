@@ -3,7 +3,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import { Application } from './Application';
-import { CartApi, ExampleApi } from './api';
+import { CartApi } from './api';
 import { initStore } from './store';
 
 describe('Application', () => {
@@ -12,7 +12,7 @@ describe('Application', () => {
 
   beforeEach(() => {
     mockCart = {
-      getState: jest.fn(() => []),
+      getState: jest.fn(() => ({})),
       setState: jest.fn(),
     };
     store = initStore({} as any, mockCart);

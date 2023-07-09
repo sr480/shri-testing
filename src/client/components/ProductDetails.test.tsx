@@ -17,7 +17,10 @@ describe('ProductDetails', () => {
     description: 'Красивые лыжи',
     material: 'Углеволокно',
     color: 'Сиреневый',
-    price: 100500
+    price: 100500,
+    variants: [
+      { id: 0, displayText: 'Handmade' }
+    ]
   }
   let renderResult: RenderResult;
   let mockCart: CartApi;
@@ -57,7 +60,7 @@ describe('ProductDetails', () => {
   it('должен добавлять в корзину при нажатии Add to Cart', () => {
     fireEvent.click(renderResult.getByRole('button'));
     expect(mockCart.setState).toHaveBeenCalledWith({
-      [mockProduct.id]: { name: mockProduct.name, price: mockProduct.price, count: 1}
+      [mockProduct.id]: { name: mockProduct.name, price: mockProduct.price, count: 1 }
     });
   });
 });

@@ -12,6 +12,10 @@
     "include": [
         "src"
     ],
+    "exclude": [
+        "src/**/*.test.ts",
+        "src/**/*.test.tsx",
+    ],
     "ts-node": {
         "compilerOptions": {
             "module": "CommonJS"

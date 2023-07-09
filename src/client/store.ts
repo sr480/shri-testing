@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux';
 import { combineEpics, createEpicMiddleware, ofType, StateObservable } from 'redux-observable';
 import { EMPTY, from, map, mapTo, mergeMap, mergeMapTo, Observable, tap } from 'rxjs';
 import { produce } from 'immer';
-import { CartState, CheckoutFormData, Product, ProductShortInfo } from '../common/types';
+import { CartState, CheckoutFormData, Product, ProductShortInfo, ProductVariant } from '../common/types';
 import { CartApi, ExampleApi } from './api';
 
 export interface ApplicationState {
@@ -26,7 +26,7 @@ export const productsLoad = () => ({ type: 'PRODUCTS_LOAD' } as const);
 export const productsLoaded = (products: ProductShortInfo[]) => ({ type: 'PRODUCTS_LOADED', products } as const);
 export const productDetailsLoad = (id: number) => ({ type: 'PRODUCT_DETAILS_LOAD', id } as const);
 export const productDetailsLoaded = (details: Product) => ({ type: 'PRODUCT_DETAILS_LOADED', details } as const);
-export const addToCart = (product: Product) => ({ type: 'ADD_TO_CART', product } as const);
+export const addToCart = (product: Product, variant: ProductVariant) => ({ type: 'ADD_TO_CART', product, variant } as const);
 export const clearCart = () => ({ type: 'CLEAR_CART' } as const);
 export const checkout = (form: CheckoutFormData, cart: CartState) => ({ type: 'CHECKOUT', form, cart } as const);
 export const checkoutComplete = (orderId: number) => ({ type: 'CHECKOUT_COMPLETE', orderId } as const);
@@ -60,13 +60,14 @@ function createRootReducer(state: Partial<ApplicationState>) {
             }
             case 'ADD_TO_CART':
                 const { id, name, price } = action.product;
-
+                const variant = action.variant;
+                const cartItemId = `${id}:${variant.id}`;
                 if (process.env.BUG_ID !== '7') {
-                    if (!draft.cart[id]) {
-                        draft.cart[id] = { name, count: 0, price };
+                    if (!draft.cart[cartItemId]) {
+                        draft.cart[cartItemId] = { id, name, count: 0, price, variant: action.variant };
                     }
 
-                    draft.cart[id].count++;
+                    draft.cart[cartItemId].count++;
                 }
 
                 draft.latestOrderId = undefined;

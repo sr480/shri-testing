@@ -8,6 +8,12 @@ export interface Product extends ProductShortInfo {
     description: string;
     material: string;
     color: string;
+    variants: ProductVariant[]
+}
+
+export interface ProductVariant {
+    id: number;
+    displayText: string;
 }
 
 export interface CheckoutFormData {
@@ -17,12 +23,14 @@ export interface CheckoutFormData {
 }
 
 export interface CartItem {
+    id: number;
     name: string;
     price: number;
     count: number;
+    variant: ProductVariant
 }
 
-export type CartState = Record<number, CartItem>;
+export type CartState = Record<string, CartItem>;
 
 export interface Order {
     form: CheckoutFormData;
