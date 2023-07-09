@@ -22,8 +22,7 @@ const config: webpack.Configuration = {
         rules: [
             {
                 test: /\.(ts|tsx)$/i,
-                loader: 'ts-loader',
-                exclude: ['/node_modules/'],
+                loader: 'ts-loader'
             },
             {
                 test: /\.css$/i,

@@ -59,8 +59,8 @@ describe('Cart', () => {
     beforeEach(() => {
       mockCart = {
         getState: jest.fn(() => ({
-          1: { name: 'foo', price: 100, count: 2 },
-          2: { name: 'boo', price: 50, count: 3 },
+          1: { id: 1, name: 'foo', price: 100, count: 2, variant: { id: 0, displayText: 'Handmade' } },
+          2: { id: 2, name: 'boo', price: 50, count: 3, variant: { id: 1, displayText: 'Fabric' } },
         })),
         setState: jest.fn(),
       };

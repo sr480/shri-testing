@@ -12,7 +12,7 @@ describe('CartBadge', () => {
   beforeEach(() => {
     mockCart = {
       getState: jest.fn(() => ({
-        1: { name: 'foo', price: 100, count: 2 },
+        1: { id: 1, name: 'foo', price: 100, count: 2, variant: { id: 1, displayText: 'Handmade' } },
       })),
       setState: jest.fn(),
     };

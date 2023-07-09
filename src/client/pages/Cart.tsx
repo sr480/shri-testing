@@ -33,7 +33,10 @@ export const Cart: React.FC = () => {
             return (
                 <tr key={id} data-testid={id}>
                     <th className={bem('Index')} scope="row">{index + 1}</th>
-                    <td className={bem('Name')}>{item.name}</td>
+                    <td className={bem('Name')}>
+                        {item.name}
+                        <blockquote style={{color: '#888', fontStyle: 'italic'}}>{item.variant.displayText}</blockquote>
+                    </td>
                     <td className={bem('Price')}>${item.price}</td>
                     <td className={bem('Count')}>{item.count}</td>
                     <td className={bem('Total')}>${item.count * item.price}</td>

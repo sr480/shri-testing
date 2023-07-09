@@ -26,13 +26,16 @@ describe('Product', () => {
     description: 'Красивые лыжи',
     material: 'Углеволокно',
     color: 'Сиреневый',
-    price: 100500
+    price: 100500,
+    variants: [
+      { id: 0, displayText: 'Handmade'}
+    ]
   }
   let renderResult: RenderResult;
 
   beforeEach(() => {
     mockCart = {
-      getState: jest.fn(() => []),
+      getState: jest.fn(() => ({})),
       setState: jest.fn(),
     };
     mockApi = {

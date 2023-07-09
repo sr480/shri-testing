@@ -18,7 +18,7 @@ describe('Catalog', () => {
 
   beforeEach(() => {
     mockCart = {
-      getState: jest.fn(() => []),
+      getState: jest.fn(() => ({})),
       setState: jest.fn(),
     };
     mockApi = {
